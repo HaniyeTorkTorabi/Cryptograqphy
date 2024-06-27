@@ -50,4 +50,17 @@ public class Main {
         }
         return result;
     }
+
+    public static List<Share> generateShares(int secret, int totalShares, int threshold, int prime) {
+        BigInteger[] coefficients = new BigInteger[threshold];
+        coefficients[0] = BigInteger.valueOf(secret);
+        for (int i = 1; i < threshold; i++) {
+            coefficients[i] = new BigInteger(prime - 1, random);
+        }
+        List<Share> shares = new ArrayList<>();
+        for (int i = 1; i <= totalShares; i++) {
+            shares.add(new Share(i, evalPolynomial(coefficients, i, prime)));
+        }
+        return shares;
+    }
 }
