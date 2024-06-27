@@ -26,6 +26,11 @@ public class Main {
         List<Share> shares = generateShares(secret, n, t, prime);
         System.out.println("Shares: " + shares);
 
+        List<Share> selectedShares = shares.subList(0, t);
+        BigInteger reconstructedSecret = reconstructSecret(selectedShares, prime);
+        System.out.println("Reconstructed Secret: " + reconstructedSecret);
+
+
         input.close();
     }
 
