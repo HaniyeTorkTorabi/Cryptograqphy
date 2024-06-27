@@ -67,7 +67,27 @@ public class Main {
         return shares;
     }
 
-    public static BigInteger modularca(BigInteger a, int prime) {
+    public static BigInteger modularInverse(BigInteger a, int prime) {
         return a.modInverse(BigInteger.valueOf(prime));
+    }
+
+    public static BigInteger reconstructSecret(List<Share> shares, int prime) {
+        BigInteger secret = BigInteger.ZERO;
+        for (int j = 0; j < shares.size(); j++) {
+            BigInteger xj = BigInteger.valueOf(shares.get(j).x);
+            BigInteger yj = shares.get(j).y;
+            BigInteger numerator = BigInteger.ONE;
+            BigInteger denominator = BigInteger.ONE;
+            for (int m = 0; m < shares.size(); m++) {
+                if (m != j) {
+                    BigInteger xm = BigInteger.valueOf(shares.get(m).x);
+                    numerator = numerator.multiply(xm.negate()).mod(BigInteger.valueOf(prime));
+                    denominator = denominator.multiply(xj.subtract(xm)).mod(BigInteger.valueOf(prime));
+                }
+            }
+            BigInteger lagrangePolynomial = numerator.multiply(modularInverse(denominator, prime)).mod(BigInteger.valueOf(prime));
+            secret = secret.add(yj.multiply(lagrangePolynomial)).mod(BigInteger.valueOf(prime));
+        }
+        return secret;
     }
 }
