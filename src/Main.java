@@ -30,7 +30,6 @@ public class Main {
         BigInteger reconstructedSecret = reconstructSecret(selectedShares, prime);
         System.out.println("Reconstructed Secret: " + reconstructedSecret);
 
-
         input.close();
     }
 
