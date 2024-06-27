@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class Main {
@@ -17,6 +18,21 @@ public class Main {
         int prime = input.nextInt();
 
         input.close();
+    }
+
+    static class Share {
+        int x;
+        BigInteger y;
+
+        Share(int x, BigInteger y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + x + ", " + y + ")";
+        }
     }
 
 }
