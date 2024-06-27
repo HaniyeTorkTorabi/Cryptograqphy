@@ -41,5 +41,13 @@ public class Main {
         }
     }
 
+    public static BigInteger evalPolynomial(BigInteger[] coefficients, int x, int prime) {
+        BigInteger result = BigInteger.ZERO;
+        BigInteger xi = BigInteger.ONE;
+        for (BigInteger coefficient : coefficients) {
 
+            xi = xi.multiply(BigInteger.valueOf(x));
+        }
+        return result;
+    }
 }
