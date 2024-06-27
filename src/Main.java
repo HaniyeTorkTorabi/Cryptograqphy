@@ -33,31 +33,6 @@ public class Main {
         input.close();
     }
 
-    static class Share {
-        int x;
-        BigInteger y;
-
-        Share(int x, BigInteger y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + x + ", " + y + ")";
-        }
-    }
-
-    public static BigInteger evalPolynomial(BigInteger[] coefficients, int x, int prime) {
-        BigInteger result = BigInteger.ZERO;
-        BigInteger xi = BigInteger.ONE;
-        for (BigInteger coefficient : coefficients) {
-
-            xi = xi.multiply(BigInteger.valueOf(x));
-        }
-        return result;
-    }
-
     public static List<Share> generateShares(int secret, int totalShares, int threshold, int prime) {
         BigInteger[] coefficients = new BigInteger[threshold];
         coefficients[0] = BigInteger.valueOf(secret);
@@ -69,6 +44,16 @@ public class Main {
             shares.add(new Share(i, evalPolynomial(coefficients, i, prime)));
         }
         return shares;
+    }
+
+    public static BigInteger evalPolynomial(BigInteger[] coefficients, int x, int prime) {
+        BigInteger result = BigInteger.ZERO;
+        BigInteger xi = BigInteger.ONE;
+        for (BigInteger coefficient : coefficients) {
+            result = result.add(coefficient.multiply(xi)).mod(BigInteger.valueOf(prime));
+            xi = xi.multiply(BigInteger.valueOf(x));
+        }
+        return result;
     }
 
     public static BigInteger modularInverse(BigInteger a, int prime) {
@@ -93,5 +78,20 @@ public class Main {
             secret = secret.add(yj.multiply(lagrangePolynomial)).mod(BigInteger.valueOf(prime));
         }
         return secret;
+    }
+
+    static class Share {
+        int x;
+        BigInteger y;
+
+        Share(int x, BigInteger y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + x + ", " + y + ")";
+        }
     }
 }
