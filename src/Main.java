@@ -23,6 +23,9 @@ public class Main {
         System.out.print("Enter the prime number (p): ");
         int prime = input.nextInt();
 
+        List<Share> shares = generateShares(secret, n, t, prime);
+        System.out.println("Shares: " + shares);
+
         input.close();
     }
 
