@@ -66,4 +66,8 @@ public class Main {
         }
         return shares;
     }
+
+    public static BigInteger modularca(BigInteger a, int prime) {
+        return a.modInverse(BigInteger.valueOf(prime));
+    }
 }
